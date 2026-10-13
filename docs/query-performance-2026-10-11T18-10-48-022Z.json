@@ -1,0 +1,917 @@
+{
+  "capturedAt": "2026-10-11T18:10:35.965Z",
+  "note": "Before means the indexes present at invocation. Re-running does not remove indexes. Timing includes local client overhead and varies with cache state.",
+  "initialIndexes": [
+    {
+      "Table": "rets_property",
+      "Non_unique": 0,
+      "Key_name": "PRIMARY",
+      "Seq_in_index": 1,
+      "Column_name": "id",
+      "Collation": "A",
+      "Cardinality": 34545,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_L_ListingID",
+      "Seq_in_index": 1,
+      "Column_name": "L_ListingID",
+      "Collation": "A",
+      "Cardinality": 34545,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_L_City",
+      "Seq_in_index": 1,
+      "Column_name": "L_City",
+      "Collation": "A",
+      "Cardinality": 1178,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_L_Zip",
+      "Seq_in_index": 1,
+      "Column_name": "L_Zip",
+      "Collation": "A",
+      "Cardinality": 1564,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_L_DisplayId",
+      "Seq_in_index": 1,
+      "Column_name": "L_DisplayId",
+      "Collation": "A",
+      "Cardinality": 34545,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_rets_property_type",
+      "Seq_in_index": 1,
+      "Column_name": "L_Type_",
+      "Collation": "A",
+      "Cardinality": 19,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "ft_remarks",
+      "Seq_in_index": 1,
+      "Column_name": "L_Remarks",
+      "Collation": null,
+      "Cardinality": 34545,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "FULLTEXT",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    }
+  ],
+  "before": [
+    {
+      "params": {
+        "city": "Irvine"
+      },
+      "total": 723,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "index",
+          "possible_keys": null,
+          "key": "PRIMARY",
+          "key_len": "4",
+          "ref": null,
+          "rows": 20,
+          "filtered": 100,
+          "Extra": "Using where"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "index",
+          "possible_keys": null,
+          "key": "idx_L_City",
+          "key_len": "203",
+          "ref": null,
+          "rows": 34545,
+          "filtered": 100,
+          "Extra": "Using where; Using index"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=25.3 rows=20) (actual time=15.7..33 rows=20 loops=1)\n    -> Filter: (lower(trim(rets_property.L_City)) = 'irvine')  (cost=25.3 rows=20) (actual time=15.7..33 rows=20 loops=1)\n        -> Index scan on rets_property using PRIMARY  (cost=25.3 rows=20) (actual time=0.0792..32.4 rows=2322 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        12.25,
+        12.712,
+        11.177
+      ]
+    },
+    {
+      "params": {
+        "city": "Irvine",
+        "minPrice": "300000",
+        "beds": "3"
+      },
+      "total": 548,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "index",
+          "possible_keys": null,
+          "key": "PRIMARY",
+          "key_len": "4",
+          "ref": null,
+          "rows": 20,
+          "filtered": 11.108888626098633,
+          "Extra": "Using where"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ALL",
+          "possible_keys": null,
+          "key": null,
+          "key_len": null,
+          "ref": null,
+          "rows": 34545,
+          "filtered": 11.108888626098633,
+          "Extra": "Using where"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=25.2 rows=2.22) (actual time=2.62..9.26 rows=20 loops=1)\n    -> Filter: ((lower(trim(rets_property.L_City)) = 'irvine') and (rets_property.L_SystemPrice >= 300000) and (rets_property.L_Keyword2 >= 3))  (cost=25.2 rows=2.22) (actual time=2.62..9.26 rows=20 loops=1)\n        -> Index scan on rets_property using PRIMARY  (cost=25.2 rows=20) (actual time=0.0203..9.01 rows=2582 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        520.485,
+        409.137,
+        432.044
+      ]
+    },
+    {
+      "params": {
+        "zipcode": "90210"
+      },
+      "total": 247,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ref",
+          "possible_keys": "idx_L_Zip",
+          "key": "idx_L_Zip",
+          "key_len": "83",
+          "ref": "const",
+          "rows": 247,
+          "filtered": 100,
+          "Extra": null
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ref",
+          "possible_keys": "idx_L_Zip",
+          "key": "idx_L_Zip",
+          "key_len": "83",
+          "ref": "const",
+          "rows": 247,
+          "filtered": 100,
+          "Extra": "Using index"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=249 rows=20) (actual time=0.021..2.24 rows=20 loops=1)\n    -> Index lookup on rets_property using idx_L_Zip (L_Zip='90210')  (cost=249 rows=247) (actual time=0.0207..2.24 rows=20 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        1.462,
+        1.312,
+        1.254
+      ]
+    },
+    {
+      "params": {
+        "minPrice": "3000000",
+        "maxPrice": "3100000"
+      },
+      "total": 89,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "index",
+          "possible_keys": null,
+          "key": "PRIMARY",
+          "key_len": "4",
+          "ref": null,
+          "rows": 20,
+          "filtered": 11.108888626098633,
+          "Extra": "Using where"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ALL",
+          "possible_keys": null,
+          "key": null,
+          "key_len": null,
+          "ref": null,
+          "rows": 34545,
+          "filtered": 11.108888626098633,
+          "Extra": "Using where"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=24.8 rows=2.22) (actual time=0.307..231 rows=20 loops=1)\n    -> Filter: ((rets_property.L_SystemPrice >= 3000000) and (rets_property.L_SystemPrice <= 3100000))  (cost=24.8 rows=2.22) (actual time=0.306..231 rows=20 loops=1)\n        -> Index scan on rets_property using PRIMARY  (cost=24.8 rows=20) (actual time=0.0144..229 rows=12720 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        692.994,
+        745.945,
+        754.608
+      ]
+    },
+    {
+      "params": {
+        "beds": "8"
+      },
+      "total": 434,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "index",
+          "possible_keys": null,
+          "key": "PRIMARY",
+          "key_len": "4",
+          "ref": null,
+          "rows": 20,
+          "filtered": 33.32999801635742,
+          "Extra": "Using where"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ALL",
+          "possible_keys": null,
+          "key": null,
+          "key_len": null,
+          "ref": null,
+          "rows": 34545,
+          "filtered": 33.32999801635742,
+          "Extra": "Using where"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=25.6 rows=6.67) (actual time=0.0409..3.45 rows=20 loops=1)\n    -> Filter: (rets_property.L_Keyword2 >= 8)  (cost=25.6 rows=6.67) (actual time=0.0404..3.45 rows=20 loops=1)\n        -> Index scan on rets_property using PRIMARY  (cost=25.6 rows=20) (actual time=0.0172..3.42 rows=627 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        510.389,
+        471.757,
+        506.774
+      ]
+    },
+    {
+      "params": {
+        "baths": "8"
+      },
+      "total": 806,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "index",
+          "possible_keys": null,
+          "key": "PRIMARY",
+          "key_len": "4",
+          "ref": null,
+          "rows": 20,
+          "filtered": 33.32999801635742,
+          "Extra": "Using where"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ALL",
+          "possible_keys": null,
+          "key": null,
+          "key_len": null,
+          "ref": null,
+          "rows": 34545,
+          "filtered": 33.32999801635742,
+          "Extra": "Using where"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=24.7 rows=6.67) (actual time=0.0375..0.725 rows=20 loops=1)\n    -> Filter: (rets_property.LM_Dec_3 >= 8.0)  (cost=24.7 rows=6.67) (actual time=0.0372..0.723 rows=20 loops=1)\n        -> Index scan on rets_property using PRIMARY  (cost=24.7 rows=20) (actual time=0.0151..0.71 rows=343 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        460.941,
+        511.404,
+        425.458
+      ]
+    }
+  ],
+  "after": [
+    {
+      "params": {
+        "city": "Irvine"
+      },
+      "total": 723,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ref",
+          "possible_keys": "idx_search_city_price",
+          "key": "idx_search_city_price",
+          "key_len": "203",
+          "ref": "const",
+          "rows": 723,
+          "filtered": 100,
+          "Extra": "Using filesort"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ref",
+          "possible_keys": "idx_search_city_price",
+          "key": "idx_search_city_price",
+          "key_len": "203",
+          "ref": "const",
+          "rows": 723,
+          "filtered": 100,
+          "Extra": null
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=731 rows=20) (actual time=72.8..72.9 rows=20 loops=1)\n    -> Sort row IDs: rets_property.id, limit input to 20 row(s) per chunk  (cost=731 rows=723) (actual time=72.7..72.8 rows=20 loops=1)\n        -> Index lookup on rets_property using idx_search_city_price (lower(trim(L_City))='irvine')  (cost=731 rows=723) (actual time=0.0578..72.5 rows=723 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        5.058,
+        4.058,
+        4.567
+      ]
+    },
+    {
+      "params": {
+        "city": "Irvine",
+        "minPrice": "300000",
+        "beds": "3"
+      },
+      "total": 548,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "range",
+          "possible_keys": "idx_search_price,idx_search_beds,idx_search_city_price",
+          "key": "idx_search_city_price",
+          "key_len": "208",
+          "ref": null,
+          "rows": 723,
+          "filtered": 49.99868392944336,
+          "Extra": "Using where; Using filesort"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "range",
+          "possible_keys": "idx_search_price,idx_search_beds,idx_search_city_price",
+          "key": "idx_search_city_price",
+          "key_len": "208",
+          "ref": null,
+          "rows": 723,
+          "filtered": 49.99868392944336,
+          "Extra": "Using where"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=813 rows=20) (actual time=3.55..3.6 rows=20 loops=1)\n    -> Sort row IDs: rets_property.id, limit input to 20 row(s) per chunk  (cost=813 rows=723) (actual time=3.55..3.6 rows=20 loops=1)\n        -> Filter: ((lower(trim(L_City)) = 'irvine') and (rets_property.L_SystemPrice >= 300000) and (rets_property.L_Keyword2 >= 3))  (cost=813 rows=723) (actual time=0.378..3.51 rows=548 loops=1)\n            -> Index range scan on rets_property using idx_search_city_price over (lower(trim(`L_City`)) = 'irvine' AND 300000 <= L_SystemPrice)  (cost=813 rows=723) (actual time=0.0185..3.44 rows=723 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        3.659,
+        3.809,
+        3.923
+      ]
+    },
+    {
+      "params": {
+        "zipcode": "90210"
+      },
+      "total": 247,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ref",
+          "possible_keys": "idx_L_Zip",
+          "key": "idx_L_Zip",
+          "key_len": "83",
+          "ref": "const",
+          "rows": 247,
+          "filtered": 100,
+          "Extra": null
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "ref",
+          "possible_keys": "idx_L_Zip",
+          "key": "idx_L_Zip",
+          "key_len": "83",
+          "ref": "const",
+          "rows": 247,
+          "filtered": 100,
+          "Extra": "Using index"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=253 rows=20) (actual time=0.0135..0.156 rows=20 loops=1)\n    -> Index lookup on rets_property using idx_L_Zip (L_Zip='90210')  (cost=253 rows=247) (actual time=0.0133..0.155 rows=20 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        0.845,
+        1.063,
+        1.022
+      ]
+    },
+    {
+      "params": {
+        "minPrice": "3000000",
+        "maxPrice": "3100000"
+      },
+      "total": 89,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "range",
+          "possible_keys": "idx_search_price",
+          "key": "idx_search_price",
+          "key_len": "5",
+          "ref": null,
+          "rows": 89,
+          "filtered": 100,
+          "Extra": "Using index condition; Using filesort"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "range",
+          "possible_keys": "idx_search_price,idx_search_city_price",
+          "key": "idx_search_price",
+          "key_len": "5",
+          "ref": null,
+          "rows": 89,
+          "filtered": 100,
+          "Extra": "Using where; Using index"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=101 rows=20) (actual time=10.1..10.3 rows=20 loops=1)\n    -> Sort row IDs: rets_property.id, limit input to 20 row(s) per chunk  (cost=101 rows=89) (actual time=10.1..10.3 rows=20 loops=1)\n        -> Index range scan on rets_property using idx_search_price over (3000000 <= L_SystemPrice <= 3100000), with index condition: ((rets_property.L_SystemPrice >= 3000000) and (rets_property.L_SystemPrice <= 3100000))  (cost=101 rows=89) (actual time=0.0527..10.1 rows=89 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        1.388,
+        1.133,
+        1.507
+      ]
+    },
+    {
+      "params": {
+        "beds": "8"
+      },
+      "total": 434,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "range",
+          "possible_keys": "idx_search_beds",
+          "key": "idx_search_beds",
+          "key_len": "5",
+          "ref": null,
+          "rows": 434,
+          "filtered": 100,
+          "Extra": "Using index condition; Using filesort"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "range",
+          "possible_keys": "idx_search_beds",
+          "key": "idx_search_beds",
+          "key_len": "5",
+          "ref": null,
+          "rows": 434,
+          "filtered": 100,
+          "Extra": "Using where; Using index"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=488 rows=20) (actual time=50.7..50.7 rows=20 loops=1)\n    -> Sort row IDs: rets_property.id, limit input to 20 row(s) per chunk  (cost=488 rows=434) (actual time=50.7..50.7 rows=20 loops=1)\n        -> Index range scan on rets_property using idx_search_beds over (8 <= L_Keyword2), with index condition: (rets_property.L_Keyword2 >= 8)  (cost=488 rows=434) (actual time=0.0148..50.4 rows=434 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        2.465,
+        3.88,
+        4.279
+      ]
+    },
+    {
+      "params": {
+        "baths": "8"
+      },
+      "total": 806,
+      "plan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "range",
+          "possible_keys": "idx_search_baths",
+          "key": "idx_search_baths",
+          "key_len": "4",
+          "ref": null,
+          "rows": 806,
+          "filtered": 100,
+          "Extra": "Using index condition; Using filesort"
+        }
+      ],
+      "countPlan": [
+        {
+          "id": 1,
+          "select_type": "SIMPLE",
+          "table": "rets_property",
+          "partitions": null,
+          "type": "range",
+          "possible_keys": "idx_search_baths",
+          "key": "idx_search_baths",
+          "key_len": "4",
+          "ref": null,
+          "rows": 806,
+          "filtered": 100,
+          "Extra": "Using where; Using index"
+        }
+      ],
+      "analyze": [
+        {
+          "EXPLAIN": "-> Limit: 20 row(s)  (cost=902 rows=20) (actual time=55.3..55.4 rows=20 loops=1)\n    -> Sort row IDs: rets_property.id, limit input to 20 row(s) per chunk  (cost=902 rows=806) (actual time=55.3..55.4 rows=20 loops=1)\n        -> Index range scan on rets_property using idx_search_baths over (8.0 <= LM_Dec_3), with index condition: (rets_property.LM_Dec_3 >= 8.0)  (cost=902 rows=806) (actual time=0.0375..55.1 rows=806 loops=1)\n"
+        }
+      ],
+      "milliseconds": [
+        3.756,
+        4.495,
+        3.807
+      ]
+    }
+  ],
+  "finalIndexes": [
+    {
+      "Table": "rets_property",
+      "Non_unique": 0,
+      "Key_name": "PRIMARY",
+      "Seq_in_index": 1,
+      "Column_name": "id",
+      "Collation": "A",
+      "Cardinality": 38017,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_L_ListingID",
+      "Seq_in_index": 1,
+      "Column_name": "L_ListingID",
+      "Collation": "A",
+      "Cardinality": 38017,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_L_City",
+      "Seq_in_index": 1,
+      "Column_name": "L_City",
+      "Collation": "A",
+      "Cardinality": 1122,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_L_Zip",
+      "Seq_in_index": 1,
+      "Column_name": "L_Zip",
+      "Collation": "A",
+      "Cardinality": 1531,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_L_DisplayId",
+      "Seq_in_index": 1,
+      "Column_name": "L_DisplayId",
+      "Collation": "A",
+      "Cardinality": 38017,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_rets_property_type",
+      "Seq_in_index": 1,
+      "Column_name": "L_Type_",
+      "Collation": "A",
+      "Cardinality": 19,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_search_price",
+      "Seq_in_index": 1,
+      "Column_name": "L_SystemPrice",
+      "Collation": "A",
+      "Cardinality": 6777,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_search_beds",
+      "Seq_in_index": 1,
+      "Column_name": "L_Keyword2",
+      "Collation": "A",
+      "Cardinality": 26,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_search_baths",
+      "Seq_in_index": 1,
+      "Column_name": "LM_Dec_3",
+      "Collation": "A",
+      "Cardinality": 28,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_search_city_price",
+      "Seq_in_index": 1,
+      "Column_name": null,
+      "Collation": "A",
+      "Cardinality": 1054,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": "lower(trim(`L_City`))"
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "idx_search_city_price",
+      "Seq_in_index": 2,
+      "Column_name": "L_SystemPrice",
+      "Collation": "A",
+      "Cardinality": 38017,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "BTREE",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    },
+    {
+      "Table": "rets_property",
+      "Non_unique": 1,
+      "Key_name": "ft_remarks",
+      "Seq_in_index": 1,
+      "Column_name": "L_Remarks",
+      "Collation": null,
+      "Cardinality": 38017,
+      "Sub_part": null,
+      "Packed": null,
+      "Null": "YES",
+      "Index_type": "FULLTEXT",
+      "Comment": "",
+      "Index_comment": "",
+      "Visible": "YES",
+      "Expression": null
+    }
+  ]
+}

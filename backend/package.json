@@ -1,0 +1,34 @@
+{
+  "name": "idx-exchange-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "IDX internship REST API through week 4",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest --runInBand",
+    "test:integration": "RUN_MYSQL_TESTS=1 jest --runInBand test/mysql.test.js",
+    "db:indexes": "node scripts/indexes.js",
+    "db:benchmark": "node scripts/benchmark.js",
+    "db:verify": "node scripts/verify-db.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "clearMocks": true
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
+    "mysql2": "^3.24.5"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.3.1"
+  }
+}
