@@ -1,8 +1,62 @@
-# IDX Exchange — Weeks 1–4
+# IDX Exchange — Weeks 1–6
 
-The backend is implemented through week 4. MySQL runs in Docker; the Express API runs locally on port 5000 and connects to MySQL on port 3306. There is no frontend yet (scheduled for week 5).
+The backend is implemented through Week 4 and the React frontend through Week 6. MySQL runs in Docker on port 3306, Express runs locally on port 5000, and React runs on port 3000.
 
-## This week's checkpoint: October 12–18, 2026
+## Current checkpoint: through November 1, 2026 (Weeks 5–6)
+
+The dates follow the earlier assumed Week 4 schedule; the internship guide does not specify a calendar start date.
+
+- React listings page with real API data, property count, responsive cards, hover effects, and accessible labeled filters.
+- Cards show the first photo, price, address, city/state/ZIP, beds, baths, and square footage. Missing/malformed photo data and failed image loads show a placeholder; absent numeric fields never display `null`.
+- City, ZIP, minimum/maximum price, beds, and baths combine in a search. Empty values are omitted, zero remains valid, and Clear resets the form and reloads all listings.
+- Loading, no-results, and API-error states are visible, with retry after errors. Starting a search immediately clears old results, aborts previous work, and ignores stale responses, including the Search → Clear → Search sequence.
+- Frontend tests cover API responses/errors, filter behavior, card fallbacks, and the async search regression.
+
+The frontend uses Create React App (`react-scripts`) as specified by the internship guide. The [development proxy](https://create-react-app.dev/docs/proxying-api-requests-in-development/) forwards `/api/*` to Express at `http://127.0.0.1:5000`; database credentials stay in the backend. Create React App is deprecated but retained here to match the assignment. A production deployment would need its own `/api` reverse proxy; the development proxy is not included in the build.
+
+Verification on November 1, 2026: **24 frontend tests and all 133 backend tests passed**, including real MySQL fixtures. The production frontend build compiled successfully. Chrome checks confirmed 55,212 total properties, 548 matches for Irvine / minimum price 300,000 / 3+ beds, Clear resetting the search, empty results, error/retry recovery, and no horizontal overflow at a 390px mobile viewport. No browser JavaScript exceptions occurred during these checks.
+
+### Run the complete app
+
+Start Docker Desktop, then in separate terminals from the project root:
+
+```bash
+# Database (already imported)
+docker start idx-mysql-local
+
+# Terminal 1: API
+npm ci --prefix backend
+npm run dev --prefix backend
+
+# Terminal 2: React
+npm ci --prefix frontend
+npm start --prefix frontend
+```
+
+Open <http://localhost:3000>. The page displays up to 20 matching listings. Pagination controls are the Week 7 milestone, and property-detail navigation comes later. Photos depend on the supplied MLS URLs; expired URLs show a placeholder. Fonts use Google Fonts with local fallbacks.
+
+```bash
+# Noninteractive frontend tests
+npm test --prefix frontend -- --runInBand
+
+# Production build
+npm run build --prefix frontend
+
+# All backend tests, including the existing MySQL fixtures
+RUN_MYSQL_TESTS=1 npm test --prefix backend
+```
+
+Key frontend files:
+
+- `frontend/src/api/client.js`: filter serialization, cancellation, HTTP/connection error handling, and response validation.
+- `frontend/src/pages/ListingsPage.js`: loading/results/error states and protection from stale async responses.
+- `frontend/src/components/PropertyFilters.js`: six controlled inputs, price validation, Search, and Clear.
+- `frontend/src/components/PropertyCard.js`: property display and image failure fallback.
+- `frontend/src/utils/property.js`: defensive photo parsing and numeric formatting.
+
+Supervisor demos and explaining the code remain personal checkpoints.
+
+## Previous checkpoint: October 12–18, 2026
 
 Week 4 is assumed from the completed Week 3 checkpoint on October 11; the guide does not specify a calendar start date. Both required SQL files, root/backend environment files, environment examples, and the backend dependency lockfile are present. No input files are missing for Weeks 1–4.
 
@@ -25,11 +79,11 @@ Run all checks from the project root:
 RUN_MYSQL_TESTS=1 npm test --prefix backend
 ```
 
-The React `frontend/` is the next milestone, not a missing supplied file. Later deliverables include frontend tests, Maps configuration, a PR template, and presentation materials. Supervisor demos and explaining the code remain personal checkpoints.
+This historical checkpoint preceded the React frontend, now implemented above. Later deliverables include pagination, property details, Maps configuration, a PR template, and presentation materials.
 
 ### Environment protection
 
-`.gitignore` excludes `.env` and `.env.*` at every directory level, keeping only `.env.example` and `.env.*.example` templates eligible for Git. Templates must contain placeholders only. Raw SQL dumps are also ignored. Verified that root/backend `.env` files and `.env.local`/`.env.production` variants are excluded. The local repository has no commits or tracked files as of this check; nothing was pushed. Remote repository history was not audited. Do not force-add ignored credentials with `git add -f`.
+`.gitignore` excludes `.env` and `.env.*` at every directory level, keeping only `.env.example` and `.env.*.example` templates eligible for Git. Templates must contain placeholders only. Raw SQL dumps are also ignored. Verified that root/backend `.env` files and `.env.local`/`.env.production` variants are excluded. At the time of the original environment check, the local repository had no commits or tracked files; the Week 4 implementation was subsequently committed on October 12. Remote repository history was not audited. Do not force-add ignored credentials with `git add -f`.
 
 ## Start the project
 

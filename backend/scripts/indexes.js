@@ -1,3 +1,4 @@
+// npm run db:indexes: creates the search indexes on rets_property (safe to re-run).
 const indexDefinitions = [
   ['idx_search_city_price', '((LOWER(TRIM(L_City))), L_SystemPrice)'],
   ['idx_search_price', '(L_SystemPrice)'],
@@ -5,6 +6,7 @@ const indexDefinitions = [
   ['idx_search_baths', '(LM_Dec_3)'],
 ];
 
+// Creates any missing index, skips ones that already exist, then runs ANALYZE TABLE.
 async function ensureIndexes(db, log = console.log) {
   const connection = typeof db.getConnection === 'function' ? await db.getConnection() : db;
   let originalMode;

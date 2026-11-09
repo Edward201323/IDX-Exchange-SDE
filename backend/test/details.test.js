@@ -1,3 +1,4 @@
+// Unit tests for the detail and open-house endpoints, ID validation, and request logging, against a mocked DB.
 const request = require('supertest');
 const createApp = require('../src/app');
 

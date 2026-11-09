@@ -1,3 +1,5 @@
+// npm run db:verify: read-only check that both tables have data and the real API passes the
+// week 1–3 acceptance criteria (health, pagination, filters, 400s, index usage).
 const assert = require('node:assert/strict');
 const pool = require('../src/db');
 const createApp = require('../src/app');

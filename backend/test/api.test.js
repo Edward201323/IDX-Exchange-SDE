@@ -1,3 +1,4 @@
+// Unit tests for /api/health and GET /api/properties (validation, filters, pagination) against a mocked DB.
 const request = require('supertest');
 const createApp = require('../src/app');
 

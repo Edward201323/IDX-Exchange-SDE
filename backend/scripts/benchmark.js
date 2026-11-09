@@ -1,3 +1,5 @@
+// npm run db:benchmark: records EXPLAIN plans and timings for sample searches before and
+// after adding indexes, and saves the report to docs/query-performance-*.json.
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const { performance } = require('node:perf_hooks');
@@ -14,6 +16,7 @@ const cases = [
   { baths: '8' },
 ];
 
+// Runs every sample search and collects its EXPLAIN output, row count, and timings.
 async function measure() {
   const output = [];
   for (const params of cases) {

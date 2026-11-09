@@ -1,3 +1,4 @@
+// Loads .env files and exports the server port, the allowed CORS origin, and the MySQL pool settings.
 const path = require('node:path');
 const dotenv = require('dotenv');
 
@@ -5,6 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: path.resolve(__dirname, '../.env'), quiet: true });
 dotenv.config({ path: path.resolve(__dirname, '../../.env'), quiet: true });
 
+// Fails fast at startup if a port setting isn't a valid integer.
 function port(value, fallback, name) {
   const result = Number(value ?? fallback);
   if (!Number.isInteger(result) || result < 1 || result > 65535) {

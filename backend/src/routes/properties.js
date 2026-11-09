@@ -1,8 +1,11 @@
+// Routes mounted at /api/properties: paginated search, single-listing detail,
+// and a listing's open houses. Every route takes the listing's L_ListingID.
 const express = require('express');
 const { parseSearch, buildWhere, ValidationError } = require('../search');
 
 module.exports = function propertiesRoute(db) {
   const router = express.Router();
+  // Validates :id once for every route below, so malformed IDs get a 400 before any query runs.
   router.param('id', (req, _res, next, id) => {
     // Listing IDs are strings, not the table's internal numeric primary key.
     if (!/^[A-Za-z0-9_-]{1,255}$/.test(id)) {
@@ -10,6 +13,7 @@ module.exports = function propertiesRoute(db) {
     }
     next();
   });
+  // GET /api/properties: filtered, paginated search returning { total, limit, offset, results }.
   router.get('/', async (req, res, next) => {
     try {
       const { filters, limit, offset } = parseSearch(req.query);
@@ -26,6 +30,8 @@ module.exports = function propertiesRoute(db) {
       next(error);
     }
   });
+  // GET /api/properties/:id/openhouses: 404 if the listing doesn't exist, otherwise its events
+  // (possibly []) sorted by date and start time. Registered before /:id, per the week 4 requirement.
   router.get('/:id/openhouses', async (req, res, next) => {
     try {
       const [properties] = await db.execute('SELECT L_ListingID FROM rets_property WHERE L_ListingID = ? LIMIT 1', [req.params.id]);
@@ -40,6 +46,7 @@ module.exports = function propertiesRoute(db) {
       next(error);
     }
   });
+  // GET /api/properties/:id: the full property row, or 404 if no listing has that ID.
   router.get('/:id', async (req, res, next) => {
     try {
       const [properties] = await db.execute('SELECT * FROM rets_property WHERE L_ListingID = ? LIMIT 1', [req.params.id]);

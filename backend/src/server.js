@@ -1,3 +1,4 @@
+// Entry point (npm start / npm run dev): starts the API on port 5000 and closes the DB pool on shutdown.
 const { port } = require('./config');
 const pool = require('./db');
 const createApp = require('./app');
@@ -10,6 +11,7 @@ server.on('error', async (error) => {
   await pool.end();
   process.exitCode = 1;
 });
+// Graceful shutdown on Ctrl+C or nodemon restart; force-exits if it takes longer than 10s.
 function shutdown() {
   server.close(async () => {
     await pool.end();

@@ -1,5 +1,8 @@
+// Search helpers for GET /api/properties: parseSearch validates the query string,
+// and buildWhere turns the validated filters into a parameterized WHERE clause.
 const allowed = new Set(['city', 'zipcode', 'minPrice', 'maxPrice', 'beds', 'baths', 'limit', 'offset']);
 
+// Thrown for bad client input; the error handler in app.js turns it into a 400.
 class ValidationError extends Error {
   constructor(message) {
     super(message);
@@ -7,6 +10,8 @@ class ValidationError extends Error {
   }
 }
 
+// Rejects unknown or repeated params and out-of-range numbers, then returns
+// { filters, limit, offset } with limit defaulting to 20 and offset to 0.
 function parseSearch(query) {
   const input = {};
   for (const [name, value] of Object.entries(query)) {
@@ -17,6 +22,7 @@ function parseSearch(query) {
     input[name] = value.trim();
   }
   const filters = {};
+  // Parses one numeric param, or returns fallback when it's absent.
   function numeric(name, fallback, max, decimals = 0, min = 0) {
     if (input[name] === undefined) return fallback;
     const pattern = decimals ? new RegExp(`^\\d+(?:\\.\\d{1,${decimals}})?$`) : /^\d+$/;
@@ -52,6 +58,8 @@ function parseSearch(query) {
   };
 }
 
+// Each condition pushes exactly one value in the same order, so the ? placeholders always
+// line up with their values. Column names come from this fixed list, never from user input.
 function buildWhere(filters) {
   const conditions = [];
   const values = [];

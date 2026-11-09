@@ -1,3 +1,4 @@
+// Integration tests for search filters against real MySQL; skipped unless RUN_MYSQL_TESTS=1.
 const mysql = require('mysql2/promise');
 const request = require('supertest');
 const { database } = require('../src/config');
