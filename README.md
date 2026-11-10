@@ -1,8 +1,19 @@
-# IDX Exchange — Week 7 + Week 8 Carousel Checkpoint
+# IDX Exchange — Week 7 + Week 8 Checkpoints
 
-The backend is implemented through Week 4 and the React frontend through Week 7, with the listing-card photo carousel from Week 8. MySQL runs in Docker on port 3306, Express runs locally on port 5000, and React runs on port 3000.
+The backend is implemented through Week 4 and the React frontend through Week 7, with the listing-card photo carousel and property-detail API client from Week 8. MySQL runs in Docker on port 3306, Express runs locally on port 5000, and React runs on port 3000.
 
-## Current checkpoint: November 9, 2026
+## Current checkpoint: November 10, 2026
+
+Added the frontend `fetchPropertyDetail(id, { signal })` API function as a small Week 8 checkpoint, estimated at less than one fifth of the week's work.
+
+- Requests the existing `GET /api/properties/:id` endpoint using the listing ID, preserving leading zeros.
+- Validates IDs before requesting and rejects malformed successful responses; returns the full property object with nullable/legacy fields intact.
+- Shares JSON, connection-error, HTTP-error, and cancellation handling with the listings client.
+- Tests cover valid/invalid IDs, successful details, 400/404/500 responses, non-JSON responses, connection failures, and cancellation during fetch or body reading.
+
+**Verified November 10:** all 66 frontend tests passed and the production build passed with `CI=true` and no warnings. Backend code is unchanged; database tests and browser visual checks were not repeated. This checkpoint adds the API foundation; the detail page and navigation are still pending.
+
+## Previous checkpoint: November 9, 2026
 
 Using the existing assumed schedule, Week 7 was November 2–8 and Week 8 is November 9–15. The guide supplies week numbers, not calendar dates. Code is complete through Week 7, plus the listing-card carousel as a roughly one-fifth checkpoint of Week 8 (an effort estimate, not completion of the full Week 8 milestone).
 
@@ -23,7 +34,7 @@ Using the existing assumed schedule, Week 7 was November 2–8 and Week 8 is Nov
 - Arrow clicks prevent default navigation and stop propagation, ready for the later clickable-card routing step.
 - Tests cover wraparound, counters, click isolation, invalid photos, failed loads, and resetting when listing data changes.
 
-**Remaining Week 8 work:** React Router and clickable cards; detail page and detail API client; gallery with thumbnails/lightbox; Google Maps configuration and map; open-house schedule and remarks. No Maps key is needed for this checkpoint. Supervisor demos and explaining the code remain personal checkpoints.
+**Remaining Week 8 work:** React Router and clickable cards; detail page; gallery with thumbnails/lightbox; Google Maps configuration and map; open-house schedule and remarks. No Maps key is needed for this checkpoint. Supervisor demos and explaining the code remain personal checkpoints.
 
 **Verified November 9, 2026:** 38 frontend tests and all 133 backend tests passed, including real MySQL fixtures. The production build passed with `CI=true` and no lint warnings. Read-only database verification confirmed 55,212 properties, 13,433 open houses, health, pagination, combined filters (548 Irvine matches), input validation, and index usage. Browser visual checks were not repeated for this checkpoint.
 
