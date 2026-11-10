@@ -1,8 +1,38 @@
-# IDX Exchange — Weeks 1–6
+# IDX Exchange — Week 7 + Week 8 Carousel Checkpoint
 
-The backend is implemented through Week 4 and the React frontend through Week 6. MySQL runs in Docker on port 3306, Express runs locally on port 5000, and React runs on port 3000.
+The backend is implemented through Week 4 and the React frontend through Week 7, with the listing-card photo carousel from Week 8. MySQL runs in Docker on port 3306, Express runs locally on port 5000, and React runs on port 3000.
 
-## Current checkpoint: through November 1, 2026 (Weeks 5–6)
+## Current checkpoint: November 9, 2026
+
+Using the existing assumed schedule, Week 7 was November 2–8 and Week 8 is November 9–15. The guide supplies week numbers, not calendar dates. Code is complete through Week 7, plus the listing-card carousel as a roughly one-fifth checkpoint of Week 8 (an effort estimate, not completion of the full Week 8 milestone).
+
+### Week 7 completed: pagination
+
+- Listings use 20 items per page, with Previous/Next, numbered pages, current-page indication, and ellipses for large totals.
+- Previous is disabled on the first page, Next on the last; controls are hidden for zero or one page.
+- Results show ranges such as “Showing 21-40 of 55,212 properties.”
+- Page changes preserve submitted filters and scroll to the top. Search and Clear reset to page 1; unsubmitted form edits do not affect pagination.
+- Loading clears old cards, cancels prior requests, and ignores stale responses. Retry keeps the requested page and filters. If the total shrinks beyond the selected page, the app requests the new last page.
+- Component tests cover boundaries, clicks, ellipses, and duplicate-page regressions; page tests cover filters, clear, retry, cancellation, and shrinking totals.
+
+### Week 8 checkpoint completed: listing photo carousel
+
+- Property cards use a reusable `PropertyImageCarousel` with previous/next arrows, wraparound, and an X / Y counter.
+- Shared photo parsing accepts JSON arrays or arrays, ignores invalid entries and unsafe URL schemes, and handles missing/malformed values.
+- Failed image URLs display a placeholder while other photos remain accessible. Single-photo cards hide arrows; cards without photos show a placeholder.
+- Arrow clicks prevent default navigation and stop propagation, ready for the later clickable-card routing step.
+- Tests cover wraparound, counters, click isolation, invalid photos, failed loads, and resetting when listing data changes.
+
+**Remaining Week 8 work:** React Router and clickable cards; detail page and detail API client; gallery with thumbnails/lightbox; Google Maps configuration and map; open-house schedule and remarks. No Maps key is needed for this checkpoint. Supervisor demos and explaining the code remain personal checkpoints.
+
+**Verified November 9, 2026:** 38 frontend tests and all 133 backend tests passed, including real MySQL fixtures. The production build passed with `CI=true` and no lint warnings. Read-only database verification confirmed 55,212 properties, 13,433 open houses, health, pagination, combined filters (548 Irvine matches), input validation, and index usage. Browser visual checks were not repeated for this checkpoint.
+
+Key new files:
+- `frontend/src/components/Pagination.js`
+- `frontend/src/components/PropertyImageCarousel.js`
+- Their adjacent component tests and the expanded `ListingsPage.test.js`.
+
+## Previous checkpoint: through November 1, 2026 (Weeks 5–6)
 
 The dates follow the earlier assumed Week 4 schedule; the internship guide does not specify a calendar start date.
 
@@ -33,7 +63,7 @@ npm ci --prefix frontend
 npm start --prefix frontend
 ```
 
-Open <http://localhost:3000>. The page displays up to 20 matching listings. Pagination controls are the Week 7 milestone, and property-detail navigation comes later. Photos depend on the supplied MLS URLs; expired URLs show a placeholder. Fonts use Google Fonts with local fallbacks.
+Open <http://localhost:3000>. The page displays 20 matching listings per page with pagination controls and card photo carousels. Property-detail navigation comes in the next Week 8 checkpoint. Photos depend on the supplied MLS URLs; expired URLs show a placeholder. Fonts use Google Fonts with local fallbacks.
 
 ```bash
 # Noninteractive frontend tests

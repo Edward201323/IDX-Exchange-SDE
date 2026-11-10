@@ -1,11 +1,18 @@
-export function firstPhoto(value) {
+export function parsePhotos(value) {
   try {
     const photos = typeof value === 'string' ? JSON.parse(value) : value;
-    if (!Array.isArray(photos) || typeof photos[0] !== 'string') return null;
-    const url = new URL(photos[0]);
-    return ['https:', 'http:'].includes(url.protocol) ? url.href : null;
+    if (!Array.isArray(photos)) return [];
+    return photos.flatMap(photo => {
+      if (typeof photo !== 'string') return [];
+      try {
+        const url = new URL(photo);
+        return ['https:', 'http:'].includes(url.protocol) ? [url.href] : [];
+      } catch {
+        return [];
+      }
+    });
   } catch {
-    return null;
+    return [];
   }
 }
 

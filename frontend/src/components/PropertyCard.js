@@ -1,25 +1,12 @@
-import { useState } from 'react';
-import { firstPhoto, numberLabel, priceLabel } from '../utils/property';
+import PropertyImageCarousel from './PropertyImageCarousel';
+import { numberLabel, priceLabel } from '../utils/property';
 
 export default function PropertyCard({ property }) {
-  const photo = firstPhoto(property.L_Photos);
-  const [failedPhoto, setFailedPhoto] = useState(null);
   const address = property.L_Address || 'Address unavailable';
   const location = [property.L_City, property.L_State, property.L_Zip].filter(Boolean).join(', ');
   return (
     <article className="property-card" aria-label={address}>
-      <div className="property-photo">
-        {photo && photo !== failedPhoto ? (
-          <img src={photo} alt={`Exterior of ${address}`} loading="lazy" onError={() => setFailedPhoto(photo)} />
-        ) : (
-          <div className="photo-placeholder">
-            <svg width="42" height="42" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <path d="M4 15 16 5l12 10M8 12v15h16V12M13 27v-9h6v9" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-            </svg>
-            <span>Photo unavailable</span>
-          </div>
-        )}
-      </div>
+      <PropertyImageCarousel key={JSON.stringify([property.L_ListingID, property.L_Photos])} photos={property.L_Photos} address={address} />
       <div className="property-body">
         <p className="property-price">{priceLabel(property.L_SystemPrice)}</p>
         <h3>{address}</h3>
